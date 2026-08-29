@@ -14,7 +14,7 @@ body { margin: 0; background: #050505; color: #F5F5F5; font-family: var(--font-s
   .panel-card { @apply rounded-3xl border border-white/10 bg-cyber-card p-5 transition duration-300 hover:-translate-y-1 hover:border-cyber-red/30 hover:shadow-red-soft sm:p-7; }
   .panel-kicker { @apply font-mono text-[10px] tracking-[.26em] text-cyber-red; }
   .icon-box { @apply flex h-10 w-10 items-center justify-center rounded-xl border border-cyber-red/20 bg-cyber-red/[.06] text-cyber-red; }
-  .skill-pill { @apply rounded-full border border-white/10 bg-black/35 px-3 py-1.5 text-xs text-cyber-secondary; }
+  .skill-pill { @apply rounded-full border border-white/10 bg-black/35 px-3 py-1.5 text-xs text-[#b8b8b8]; }
   .tool-tag { @apply rounded-xl border border-white/10 bg-black/40 px-3 py-2 font-mono text-[11px] text-cyber-secondary transition hover:border-cyber-red/50 hover:text-white hover:shadow-[0_0_20px_rgba(225,6,0,.12)]; }
   .btn-primary { @apply inline-flex items-center gap-2 rounded-xl bg-white px-5 py-3 font-mono text-xs font-bold text-black transition hover:-translate-y-0.5 hover:bg-cyber-red hover:text-white hover:shadow-[0_0_25px_rgba(225,6,0,.25)]; }
   .btn-secondary { @apply inline-flex items-center gap-2 rounded-xl border border-cyber-red/70 bg-black/20 px-5 py-3 font-mono text-xs font-bold text-white transition hover:-translate-y-0.5 hover:bg-cyber-red/[.08] hover:shadow-red-soft; }
@@ -235,4 +235,95 @@ body { margin: 0; background: #050505; color: #F5F5F5; font-family: var(--font-s
 @media (max-width: 640px) {
   .profile-row { grid-template-columns:1fr; gap:.3rem; }
   .project-visual { min-height:220px; }
+}
+
+/* Enterprise lab project evidence */
+.project-status {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgba(225,6,0,.28);
+  border-radius: 999px;
+  background: rgba(225,6,0,.055);
+  padding: .36rem .62rem;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: .14em;
+  color: #d6d6d6;
+}
+
+.validation-chip {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  min-height: 38px;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 11px;
+  background: rgba(0,0,0,.24);
+  padding: .6rem .72rem;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: .08em;
+  color: #bcbcbc;
+}
+.validation-chip svg { color: #E10600; flex: 0 0 auto; }
+
+.enterprise-project-visual {
+  min-height: 320px;
+  padding: .65rem;
+  background: radial-gradient(circle at 50% 30%,rgba(225,6,0,.09),transparent 45%), #080808;
+}
+.enterprise-architecture {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 28px 70px rgba(0,0,0,.45);
+}
+
+.project-evidence {
+  margin-top: 2rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid rgba(255,255,255,.07);
+}
+.evidence-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+.evidence-card {
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 18px;
+  background: rgba(5,5,5,.72);
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.evidence-card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(225,6,0,.34);
+  box-shadow: 0 18px 46px rgba(0,0,0,.34), 0 0 26px rgba(225,6,0,.08);
+}
+.evidence-card a {
+  display: block;
+  background: #080808;
+}
+.evidence-card img {
+  display: block;
+  width: 100%;
+  height: 245px;
+  object-fit: contain;
+  background: #080808;
+}
+.evidence-card figcaption {
+  min-height: 72px;
+  padding: .85rem 1rem 1rem;
+  border-top: 1px solid rgba(255,255,255,.06);
+  font-size: 12px;
+  line-height: 1.6;
+  color: #9d9d9d;
+}
+
+@media (max-width: 768px) {
+  .evidence-grid { grid-template-columns: 1fr; }
+  .evidence-card img { height: auto; max-height: 420px; }
+  .enterprise-project-visual { min-height: 0; }
 }

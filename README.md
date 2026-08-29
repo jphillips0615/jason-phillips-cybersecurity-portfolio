@@ -33,3 +33,9 @@ Hands-on training and labs are deliberately separated from professional employme
 ## Completed Training Certificates
 
 The portfolio now includes eight downloadable credential PDFs in `public/` and presents them in the Credentials section with View Certificate links. Coursera credentials also include verification links.
+
+## Featured Lab: Enterprise Windows Domain & Network Security Lab
+
+The portfolio now includes a featured self-built Windows Server 2025 / Windows 11 security lab with a custom architecture diagram and captured validation evidence covering Active Directory, DNS, SMB/NTFS access control, source-specific Windows Firewall rules, and service-reachability testing.
+
+Portfolio status label: `FUNCTIONAL SECURITY LAB // ONGOING EXPANSION`

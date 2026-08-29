@@ -23,20 +23,71 @@ const skillGroups = [
 const tools = ['Burp Suite','Nmap','Wireshark','Metasploit','Nuclei','Hashcat','John the Ripper','Gobuster','ffuf','Git','VirtualBox','Kali Linux','Parrot OS']
 
 const labs = [
-  { title: 'Active Directory Lab', icon: Server, text: 'Windows Server + Windows client environment for practicing domain services and enterprise identity fundamentals.', bullets: ['Domains, users & groups','DNS & authentication','Group Policy','Network configuration'] },
+  { title: 'Enterprise Windows Domain Lab', icon: Server, text: 'Windows Server 2025 + Windows 11 environment used to practice enterprise identity, centralized authentication, secure file sharing, firewall policy, and validation testing.', bullets: ['AD users & security groups','DNS & domain authentication','SMB / NTFS access control','Firewall validation'] },
   { title: 'Web Security Lab', icon: ShieldCheck, text: 'Hands-on web application testing with a focus on understanding requests, access control, and common vulnerability classes.', bullets: ['Burp Suite & HTTP','Authentication','Access control','Path traversal'] },
   { title: 'Linux Security Environment', icon: TerminalSquare, text: 'Security-focused Linux environments used to build command-line fluency and practice defensive/offensive tooling.', bullets: ['Kali Linux','Parrot OS','Terminal tools','Recon utilities'] },
   { title: 'Networking Lab', icon: Network, text: 'Practical networking environment for learning how core services interact and how to troubleshoot them when they do not.', bullets: ['DNS & DHCP','IP addressing','TCP/IP','Routing & troubleshooting'] },
 ]
 
-const projects = [
+type Project = {
+  category: string
+  title: string
+  description: string
+  stack: string[]
+  relevance: string
+  status?: string
+  featured?: boolean
+  visual?: 'enterprise-lab' | 'simulation' | 'mock'
+  github?: string
+  live?: string
+  caseStudy?: string
+  validation?: string[]
+  screenshots?: { src: string; alt: string; caption: string }[]
+}
+
+const projects: Project[] = [
+  {
+    category: 'CYBERSECURITY',
+    title: 'Enterprise Windows Domain & Network Security Lab',
+    description: 'Built and secured a small enterprise-style Windows network using Windows Server 2025 and Windows 11 in Oracle VirtualBox. The environment demonstrates centralized authentication, DNS, role-based access control, secure file sharing, source-specific firewall rules, and validation testing.',
+    stack: ['Windows Server 2025','Windows 11 Pro','Active Directory','DNS','SMB','NTFS','Windows Defender Firewall','PowerShell','Oracle VirtualBox'],
+    relevance: 'Demonstrates enterprise identity fundamentals, least privilege, group-based authorization, selective traffic filtering, and evidence-driven validation in a self-built lab environment.',
+    status: 'FUNCTIONAL SECURITY LAB // ONGOING EXPANSION',
+    featured: true,
+    visual: 'enterprise-lab',
+    caseStudy: '/projects/enterprise-windows-domain-lab',
+    validation: ['ICMP BLOCKED','DNS / TCP 53 ALLOWED','SMB / TCP 445 ALLOWED','HR SHARE ACCESS CONTROL VERIFIED'],
+    screenshots: [
+      {
+        src: '/enterprise-lab-dns-and-icmp-validation.webp',
+        alt: 'PowerShell showing ping blocked to the domain server while TCP port 53 remains reachable',
+        caption: 'Firewall Validation: ICMP from 192.168.56.50 was blocked while DNS / TCP 53 remained reachable.'
+      },
+      {
+        src: '/enterprise-lab-smb-and-icmp-validation.webp',
+        alt: 'PowerShell showing TCP port 445 reachable and ping to the domain server timing out',
+        caption: 'Service Continuity: SMB / TCP 445 remained available even while ICMP was selectively blocked.'
+      },
+      {
+        src: '/enterprise-lab-hr-share-denied.webp',
+        alt: 'Windows network error showing access denied to the restricted HR Share',
+        caption: 'Access Control Validation: a non-authorized user was denied access to the restricted HR-Share.'
+      },
+      {
+        src: '/enterprise-lab-firewall-rule.webp',
+        alt: 'Windows Defender Firewall inbound rule wizard used to configure traffic filtering',
+        caption: 'Windows Defender Firewall with Advanced Security was used to create and scope the inbound rule.'
+      }
+    ],
+  },
   {
     category: 'CYBERSECURITY',
     title: 'Cybersecurity Simulation Platform',
     description: 'Concept for a dynamic cyber training environment that generates unpredictable offensive and defensive scenarios, measures decisions, and compares response paths against the scenario’s intended resolution.',
     stack: ['Security Architecture','Red Team','Blue Team','Scenario Engine','Training UX'],
     relevance: 'Designed around realistic decision-making, incident response, randomized scenarios, and gap analysis rather than scripted checkbox labs.',
-    featured: true,
+    status: 'CONCEPT // IN DEVELOPMENT',
+    visual: 'simulation',
   },
   {
     category: 'SAAS',
@@ -44,6 +95,8 @@ const projects = [
     description: 'Email campaign analytics SaaS focused on simplifying campaign scoring, comparisons, trends, and actionable AI-assisted insights.',
     stack: ['Next.js','TypeScript','Supabase','Vercel'],
     relevance: 'Demonstrates authentication, data handling, scoring logic, dashboards, deployment, and full-stack product thinking.',
+    status: 'SOFTWARE PROJECT',
+    visual: 'mock',
   },
   {
     category: 'WEB DEVELOPMENT',
@@ -51,6 +104,9 @@ const projects = [
     description: 'Mobile-first product for discovering cocktails, managing a personal bar, exploring pairings, and navigating spirit terminology.',
     stack: ['React Native','Expo','Supabase','TypeScript'],
     relevance: 'Shows component architecture, authentication, structured data, mobile UI, and production build workflows.',
+    status: 'MOBILE APP // IN DEVELOPMENT',
+    visual: 'mock',
+    github: 'https://github.com/jphillips0615/unique-spirits-pairings',
   },
   {
     category: 'SAAS',
@@ -58,12 +114,14 @@ const projects = [
     description: 'Product concept and application work around AI-assisted music generation, credits, account flows, pricing, and community features.',
     stack: ['Next.js','Supabase','APIs','Product Design'],
     relevance: 'Built experience with API-driven product flows, usage credits, auth state, pricing logic, and iterative debugging.',
+    status: 'CONCEPT // APPLICATION WORK',
+    visual: 'mock',
   },
 ]
 
 const training = [
   { name: 'PortSwigger Web Security Academy', status: 'ACTIVE', topics: ['Path Traversal','Access Control','Authentication','HTTP Requests','Burp Suite'] },
-  { name: 'TryHackMe', status: 'ACTIVE', topics: ['Linux','Networking','Enumeration','Security Fundamentals','Practical Labs'] },
+  { name: 'TryHackMe', status: 'ONGOING', topics: ['Linux','Networking','Enumeration','Security Fundamentals','Practical Labs'] },
   { name: 'Bug Bounty Research', status: 'ACTIVE', topics: ['Reconnaissance','Scope Evaluation','Web Testing','Burp Suite','Responsible Disclosure'] },
 ]
 
@@ -118,7 +176,7 @@ export default function Home() {
             <div className="panel-kicker">OPERATOR PROFILE</div>
             <div className="mt-6 space-y-4 font-mono text-xs sm:text-sm">
               {[
-                ['NAME','Jason Phillips'],['FIELD','Cybersecurity'],['STATUS','Building'],['PRIMARY OS','Linux / Windows'],['INTERESTS','Red Team / Blue Team / Development'],['CURRENT OBJECTIVE','Break into Cybersecurity'],
+                ['NAME','Jason Phillips'],['FIELD','Cybersecurity'],['STATUS','Building'],['PRIMARY OS','Linux / Windows'],['INTERESTS','Red Team / Blue Team / Development'],['CURRENT OBJECTIVE','Cybersecurity / Security Operations Role'],
               ].map(([a,b]) => <div key={a} className="profile-row"><span>{a}</span><strong>{b}</strong></div>)}
             </div>
             <div className="mt-5 font-mono text-xs text-cyber-red">&gt; ready_for_next_challenge<span className="terminal-cursor ml-1" /></div>
@@ -162,23 +220,47 @@ export default function Home() {
 
       <section id="projects" className="section-wrap">
         <div className="section-inner">
-          <SectionHeading label="04 // PROJECTS" title="Things I&apos;ve Built" text="Security ideas, SaaS products, and software projects that show how I approach technical problems from concept through implementation." />
+          <SectionHeading label="04 // PROJECTS" title="Selected Work" text="Hands-on security labs, software builds, and clearly labeled concepts that show how I approach technical problems from implementation through validation." />
           <div className="space-y-5">
             {projects.map((p) => (
               <RevealCard key={p.title} className={`project-card ${p.featured ? 'featured-project' : ''}`}>
                 <div className="grid gap-8 lg:grid-cols-[1fr_.9fr] lg:items-center">
                   <div>
-                    <p className="font-mono text-[10px] tracking-[.25em] text-cyber-red">{p.category}{p.featured ? ' // FEATURED' : ''}</p>
+                    <div className="flex flex-wrap items-center gap-3">
+                      <p className="font-mono text-[10px] tracking-[.25em] text-cyber-red">{p.category}{p.featured ? ' // FEATURED' : ''}</p>
+                      {p.status && <span className="project-status">{p.status}</span>}
+                    </div>
                     <h3 className="mt-3 text-2xl font-bold tracking-tight text-white sm:text-3xl">{p.title}</h3>
                     <p className="mt-4 max-w-2xl leading-7 text-cyber-secondary">{p.description}</p>
                     <div className="mt-5 flex flex-wrap gap-2">{p.stack.map((x) => <span className="skill-pill" key={x}>{x}</span>)}</div>
+
+                    {p.validation && (
+                      <div className="mt-6 grid gap-2 sm:grid-cols-2">
+                        {p.validation.map((item) => (
+                          <div key={item} className="validation-chip"><CheckCircle2 size={13}/>{item}</div>
+                        ))}
+                      </div>
+                    )}
+
                     <p className="mt-5 border-l border-cyber-red/50 pl-4 text-sm leading-6 text-cyber-secondary"><span className="font-mono text-[10px] tracking-wider text-white">SECURITY / TECHNICAL RELEVANCE</span><br/>{p.relevance}</p>
-                    <div className="mt-6 flex flex-wrap gap-3">
-                      <a href="https://github.com/jphillips0615" target="_blank" rel="noreferrer" className="project-link"><Github size={15}/> GitHub <ArrowUpRight size={13}/></a>
-                    </div>
+                    {(p.github || p.live || p.caseStudy) && (
+                      <div className="mt-6 flex flex-wrap gap-3">
+                        {p.caseStudy && <a href={p.caseStudy} className="project-link">VIEW CASE STUDY <ArrowUpRight size={13}/></a>}
+                        {p.github && <a href={p.github} target="_blank" rel="noreferrer" className="project-link"><Github size={15}/> GitHub <ArrowUpRight size={13}/></a>}
+                        {p.live && <a href={p.live} target="_blank" rel="noreferrer" className="project-link">LIVE DEMO <ArrowUpRight size={13}/></a>}
+                      </div>
+                    )}
                   </div>
-                  <div className="project-visual">
-                    {p.featured ? (
+
+                  <div className={`project-visual ${p.visual === 'enterprise-lab' ? 'enterprise-project-visual' : ''}`}>
+                    {p.visual === 'enterprise-lab' ? (
+                      <img
+                        src="/enterprise-domain-architecture.svg"
+                        alt="Architecture diagram of the v-dom.local Windows Server 2025 domain lab"
+                        className="enterprise-architecture"
+                        loading="lazy"
+                      />
+                    ) : p.visual === 'simulation' ? (
                       <div className="architecture">
                         <div className="arch-node">SCENARIO ENGINE</div><span>↓</span>
                         <div className="grid grid-cols-2 gap-2"><div className="arch-node">RED TEAM</div><div className="arch-node">BLUE TEAM</div></div><span>↓</span>
@@ -193,6 +275,28 @@ export default function Home() {
                     )}
                   </div>
                 </div>
+
+                {p.screenshots && (
+                  <div className="project-evidence">
+                    <div className="mb-4 flex flex-wrap items-end justify-between gap-3">
+                      <div>
+                        <p className="font-mono text-[10px] tracking-[.22em] text-cyber-red">VALIDATION EVIDENCE</p>
+                        <h4 className="mt-1 text-lg font-semibold text-white">Configuration & Test Results</h4>
+                      </div>
+                      <p className="max-w-xl text-sm leading-6 text-cyber-muted">Screenshots captured from the self-built lab show both denied access and selective firewall behavior while required services remain available.</p>
+                    </div>
+                    <div className="evidence-grid">
+                      {p.screenshots.map((shot) => (
+                        <figure key={shot.src} className="evidence-card">
+                          <a href={shot.src} target="_blank" rel="noreferrer" aria-label={`Open full-size evidence: ${shot.alt}`}>
+                            <img src={shot.src} alt={shot.alt} loading="lazy" />
+                          </a>
+                          <figcaption>{shot.caption}</figcaption>
+                        </figure>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </RevealCard>
             ))}
           </div>
@@ -217,6 +321,9 @@ export default function Home() {
             </RevealCard>
             <RevealCard className="timeline-card">
               <div className="timeline-dot"/><p className="font-mono text-[10px] tracking-[.2em] text-cyber-red">TECHNICAL TRAINING</p><h3 className="mt-2 text-xl font-semibold text-white">Cybersecurity Skills Development</h3><p className="mt-1 text-cyber-secondary">Labs, guided platforms, independent practice, and project-based learning</p><p className="mt-4 max-w-3xl text-sm leading-7 text-cyber-secondary">PortSwigger Academy, TryHackMe, virtualized lab environments, Linux, networking, Active Directory, Python, web application testing, and security tooling.</p>
+            </RevealCard>
+            <RevealCard className="timeline-card">
+              <div className="timeline-dot"/><p className="font-mono text-[10px] tracking-[.2em] text-cyber-red">ADDITIONAL TRAINING</p><h3 className="mt-2 text-xl font-semibold text-white">Cybersecurity Bootcamp — Attended</h3><p className="mt-1 text-cyber-secondary">Merit America</p><p className="mt-4 max-w-3xl text-sm leading-7 text-cyber-secondary">Additional structured cybersecurity training supporting the transition from operations leadership into technical and security-focused work.</p>
             </RevealCard>
           </div>
         </div>
