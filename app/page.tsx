@@ -37,7 +37,7 @@ type Project = {
   relevance: string
   status?: string
   featured?: boolean
-  visual?: 'enterprise-lab' | 'simulation' | 'mock'
+  visual?: 'enterprise-lab' | 'simulation' | 'postlogix' | 'mock'
   github?: string
   live?: string
   caseStudy?: string
@@ -91,20 +91,23 @@ const projects: Project[] = [
   },
   {
     category: 'SAAS',
-    title: 'Post-Logix A.I.',
-    description: 'Email campaign analytics SaaS focused on simplifying campaign scoring, comparisons, trends, and actionable AI-assisted insights.',
-    stack: ['Next.js','TypeScript','Supabase','Vercel'],
-    relevance: 'Demonstrates authentication, data handling, scoring logic, dashboards, deployment, and full-stack product thinking.',
-    status: 'SOFTWARE PROJECT',
-    visual: 'mock',
+    title: 'PostLogix AI',
+    description: 'Live email campaign analytics SaaS that scores campaign performance, compares historical results, tracks trends, and turns saved campaign data into actionable recommendations and AI-assisted insights.',
+    stack: ['Next.js','TypeScript','Supabase','Vercel','Authentication','AI Integration'],
+    relevance: 'Demonstrates full-stack development, persistent user data, custom scoring logic, comparative analytics, trend analysis, AI-assisted recommendations, production deployment, and iterative product development.',
+    status: 'PUBLIC BETA // LIVE',
+    visual: 'postlogix',
+    github: 'https://github.com/jphillips0615/postlogix-ai',
+    live: 'https://postlogix-ai.vercel.app',
+    caseStudy: '/projects/postlogix-ai',
   },
   {
-    category: 'WEB DEVELOPMENT',
+    category: 'MOBILE DEVELOPMENT',
     title: 'Unique Spirits & Pairings',
-    description: 'Mobile-first product for discovering cocktails, managing a personal bar, exploring pairings, and navigating spirit terminology.',
-    stack: ['React Native','Expo','Supabase','TypeScript'],
-    relevance: 'Shows component architecture, authentication, structured data, mobile UI, and production build workflows.',
-    status: 'MOBILE APP // IN DEVELOPMENT',
+    description: 'Premium cross-platform mobile application in early development for cocktail discovery, spirit education, favorites, and curated food-pairing experiences.',
+    stack: ['React Native','Expo','Expo Router','TypeScript','Git / GitHub'],
+    relevance: 'Demonstrates modular mobile architecture, reusable components, typed application development, navigation design, responsive UI, version control, and planning for a scalable product roadmap.',
+    status: 'EARLY DEVELOPMENT // ACTIVE BUILD',
     visual: 'mock',
     github: 'https://github.com/jphillips0615/unique-spirits-pairings',
   },
@@ -267,6 +270,10 @@ export default function Home() {
                         <div className="arch-node">DECISION + EVENT TRACKING</div><span>↓</span>
                         <div className="arch-node red">PERFORMANCE ANALYSIS</div>
                       </div>
+                    ) : p.visual === 'postlogix' ? (
+                      <a href="/projects/postlogix-ai" className="block w-full" aria-label="View the PostLogix AI case study">
+                        <img src="/postlogix-dashboard.webp" alt="PostLogix AI dashboard showing campaign scoring and performance metrics" className="w-full rounded-2xl border border-white/10" loading="lazy" />
+                      </a>
                     ) : (
                       <div className="mock-window">
                         <div className="mock-top"><span/><span/><span/></div>

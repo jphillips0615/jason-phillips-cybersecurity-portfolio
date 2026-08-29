@@ -11,14 +11,14 @@ npm run dev
 
 Open http://localhost:3000
 
-## Before publishing
+## Publishing status
 
-1. Email contact link is configured.
-2. LinkedIn contact link is configured.
-3. Add your real resume at `public/Jason_Phillips_Resume.pdf`.
-4. Replace generic GitHub profile links with individual repository URLs where appropriate.
-5. Wire the contact form to Formspree, Resend, your own API route, or another mail provider. The included form currently demonstrates the success interaction only.
-6. Add real screenshots to the project cards when available.
+- Email, LinkedIn, GitHub, and resume links are configured.
+- The contact form opens the visitor's email client with the form content prepared.
+- Enterprise Windows Domain Lab includes a dedicated case-study page and real validation evidence.
+- PostLogix AI includes a dedicated case-study page, real production screenshots, GitHub source link, and live Vercel beta link.
+- Unique Spirits & Pairings links to its public GitHub repository.
+- Audiora AI remains clearly labeled as in-development while the generation API/provider is still being evaluated.
 
 ## Easter eggs
 
@@ -39,3 +39,17 @@ The portfolio now includes eight downloadable credential PDFs in `public/` and p
 The portfolio now includes a featured self-built Windows Server 2025 / Windows 11 security lab with a custom architecture diagram and captured validation evidence covering Active Directory, DNS, SMB/NTFS access control, source-specific Windows Firewall rules, and service-reachability testing.
 
 Portfolio status label: `FUNCTIONAL SECURITY LAB // ONGOING EXPANSION`
+
+## Featured Software: PostLogix AI
+
+Live beta: https://postlogix-ai.vercel.app
+
+Source: https://github.com/jphillips0615/postlogix-ai
+
+The portfolio includes production screenshots for the public landing page, authenticated dashboard, recommendations, campaign comparison, trends, and AI-assisted campaign insights.
+
+## Unique Spirits & Pairings
+
+Source: https://github.com/jphillips0615/unique-spirits-pairings
+
+The project is presented as an early-development React Native / Expo mobile application until additional portfolio screenshots and release evidence are added.
