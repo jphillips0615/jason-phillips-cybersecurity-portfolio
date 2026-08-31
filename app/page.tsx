@@ -37,12 +37,13 @@ type Project = {
   relevance: string
   status?: string
   featured?: boolean
-  visual?: 'enterprise-lab' | 'simulation' | 'postlogix' | 'mock'
+  visual?: 'enterprise-lab' | 'simulation' | 'postlogix' | 'audiora' | 'planned' | 'mock'
   github?: string
   live?: string
   caseStudy?: string
   validation?: string[]
   screenshots?: { src: string; alt: string; caption: string }[]
+  roadmap?: string[]
 }
 
 const projects: Project[] = [
@@ -81,6 +82,46 @@ const projects: Project[] = [
     ],
   },
   {
+    category: 'CYBERSECURITY // NEXT LAB',
+    title: 'SIEM / SOC Monitoring Lab',
+    description: 'Planned blue-team lab focused on centralized log collection, alert triage, event correlation, and documenting an investigation from detection through resolution.',
+    stack: ['Wazuh','Windows Events','Linux Logs','SIEM','Alert Triage','Incident Investigation'],
+    relevance: 'Planned to add direct SOC-style evidence to the portfolio: collected telemetry, generated benign test events, alert review, timeline reconstruction, and analyst notes.',
+    status: 'PLANNED // NEXT BUILD',
+    visual: 'planned',
+    roadmap: ['Deploy SIEM manager','Enroll Windows / Linux endpoints','Generate controlled events','Investigate + document alerts'],
+  },
+  {
+    category: 'CYBERSECURITY // PLANNED',
+    title: 'Windows Domain Vulnerability Assessment',
+    description: 'Planned assessment of the existing v-dom.local lab from a dedicated security workstation, followed by hardening changes and before/after validation.',
+    stack: ['Kali / Parrot OS','Nmap','Windows Server','Active Directory','Service Enumeration','Hardening'],
+    relevance: 'Will extend the current enterprise lab from configuration into assessment: inventory exposed services, identify weaknesses, prioritize remediation, harden the environment, and verify the result.',
+    status: 'PLANNED // LAB EXPANSION',
+    visual: 'planned',
+    roadmap: ['Establish baseline','Enumerate attack surface','Document findings','Harden + retest'],
+  },
+  {
+    category: 'CYBERSECURITY // PLANNED',
+    title: 'Network Traffic Analysis & Packet Investigation',
+    description: 'Planned Wireshark-based lab for capturing and explaining DNS, SMB, authentication, and firewall-related traffic inside the isolated cyber range.',
+    stack: ['Wireshark','TCP/IP','DNS','SMB','Packet Analysis','Network Troubleshooting'],
+    relevance: 'Designed to demonstrate packet-level understanding rather than command-only troubleshooting: identify protocols, follow flows, explain expected behavior, and isolate abnormal results.',
+    status: 'PLANNED // PACKET ANALYSIS',
+    visual: 'planned',
+    roadmap: ['Capture known-good traffic','Filter key protocols','Trace client/server flows','Write packet findings'],
+  },
+  {
+    category: 'CYBERSECURITY // PLANNED',
+    title: 'Linux Server Hardening Lab',
+    description: 'Planned defensive Linux build that starts with a measurable baseline, reduces unnecessary exposure, tightens access controls, and validates the hardened configuration.',
+    stack: ['Linux','SSH','Firewall','Users / Permissions','Service Hardening','Validation'],
+    relevance: 'Will show a repeatable hardening workflow: baseline services, identify unnecessary exposure, apply configuration changes, and prove the reduced attack surface.',
+    status: 'PLANNED // HARDENING',
+    visual: 'planned',
+    roadmap: ['Baseline ports / services','Review users + SSH','Apply firewall / config changes','Retest attack surface'],
+  },
+  {
     category: 'CYBERSECURITY',
     title: 'Cybersecurity Simulation Platform',
     description: 'Concept for a dynamic cyber training environment that generates unpredictable offensive and defensive scenarios, measures decisions, and compares response paths against the scenario’s intended resolution.',
@@ -102,23 +143,15 @@ const projects: Project[] = [
     caseStudy: '/projects/postlogix-ai',
   },
   {
-    category: 'MOBILE DEVELOPMENT',
-    title: 'Unique Spirits & Pairings',
-    description: 'Premium cross-platform mobile application in early development for cocktail discovery, spirit education, favorites, and curated food-pairing experiences.',
-    stack: ['React Native','Expo','Expo Router','TypeScript','Git / GitHub'],
-    relevance: 'Demonstrates modular mobile architecture, reusable components, typed application development, navigation design, responsive UI, version control, and planning for a scalable product roadmap.',
-    status: 'EARLY DEVELOPMENT // ACTIVE BUILD',
-    visual: 'mock',
-    github: 'https://github.com/jphillips0615/unique-spirits-pairings',
-  },
-  {
-    category: 'SAAS',
+    category: 'FULL-STACK PRODUCT DEVELOPMENT',
     title: 'Audiora AI',
-    description: 'Product concept and application work around AI-assisted music generation, credits, account flows, pricing, and community features.',
-    stack: ['Next.js','Supabase','APIs','Product Design'],
-    relevance: 'Built experience with API-driven product flows, usage credits, auth state, pricing logic, and iterative debugging.',
-    status: 'CONCEPT // APPLICATION WORK',
-    visual: 'mock',
+    description: 'AI-assisted music creation platform with a polished product interface, Supabase authentication, account flows, credit and pricing concepts, a detailed creation studio, lyrics workflow, and an AI-producer experience called Aria.',
+    stack: ['Next.js','TypeScript','Supabase','Authentication','Product Design','Credit Logic','API Architecture'],
+    relevance: 'Shows full-stack product thinking, authenticated user flows, complex state-driven UI, monetization planning, creative workflow design, and architecture prepared for an external generation provider.',
+    status: 'IN DEVELOPMENT // GENERATION API INTEGRATION PENDING',
+    visual: 'audiora',
+    github: 'https://github.com/jphillips0615/audiora-ai',
+    caseStudy: '/projects/audiora-ai',
   },
 ]
 
@@ -223,7 +256,7 @@ export default function Home() {
 
       <section id="projects" className="section-wrap">
         <div className="section-inner">
-          <SectionHeading label="04 // PROJECTS" title="Selected Work" text="Hands-on security labs, software builds, and clearly labeled concepts that show how I approach technical problems from implementation through validation." />
+          <SectionHeading label="04 // PROJECTS" title="Selected Work" text="Security-first portfolio work: completed labs and evidence come first, followed by clearly labeled next-lab targets and selected software products that demonstrate technical depth." />
           <div className="space-y-5">
             {projects.map((p) => (
               <RevealCard key={p.title} className={`project-card ${p.featured ? 'featured-project' : ''}`}>
@@ -274,6 +307,19 @@ export default function Home() {
                       <a href="/projects/postlogix-ai" className="block w-full" aria-label="View the PostLogix AI case study">
                         <img src="/postlogix-dashboard.webp" alt="PostLogix AI dashboard showing campaign scoring and performance metrics" className="w-full rounded-2xl border border-white/10" loading="lazy" />
                       </a>
+                    ) : p.visual === 'audiora' ? (
+                      <a href="/projects/audiora-ai" className="block w-full" aria-label="View the Audiora AI case study">
+                        <img src="/audiora-studio.webp" alt="Audiora AI creation studio interface" className="w-full rounded-2xl border border-white/10" loading="lazy" />
+                      </a>
+                    ) : p.visual === 'planned' ? (
+                      <div className="planned-visual">
+                        <div className="planned-header"><Radar size={18}/> LAB ROADMAP // NOT YET CLAIMED AS COMPLETE</div>
+                        <div className="planned-steps">
+                          {(p.roadmap || []).map((step, index) => (
+                            <div key={step} className="planned-step"><span>{String(index + 1).padStart(2, '0')}</span><strong>{step}</strong></div>
+                          ))}
+                        </div>
+                      </div>
                     ) : (
                       <div className="mock-window">
                         <div className="mock-top"><span/><span/><span/></div>

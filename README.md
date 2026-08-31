@@ -17,8 +17,8 @@ Open http://localhost:3000
 - The contact form opens the visitor's email client with the form content prepared.
 - Enterprise Windows Domain Lab includes a dedicated case-study page and real validation evidence.
 - PostLogix AI includes a dedicated case-study page, real production screenshots, GitHub source link, and live Vercel beta link.
-- Unique Spirits & Pairings links to its public GitHub repository.
-- Audiora AI remains clearly labeled as in-development while the generation API/provider is still being evaluated.
+- Audiora AI includes a dedicated case-study page with real development screenshots and is clearly labeled as awaiting a production music-generation API/provider.
+- The project section is intentionally cybersecurity-heavy and includes clearly labeled placeholders for the next planned security labs.
 
 ## Easter eggs
 
@@ -48,8 +48,22 @@ Source: https://github.com/jphillips0615/postlogix-ai
 
 The portfolio includes production screenshots for the public landing page, authenticated dashboard, recommendations, campaign comparison, trends, and AI-assisted campaign insights.
 
-## Unique Spirits & Pairings
 
-Source: https://github.com/jphillips0615/unique-spirits-pairings
+## Audiora AI
 
-The project is presented as an early-development React Native / Expo mobile application until additional portfolio screenshots and release evidence are added.
+Source: https://github.com/jphillips0615/audiora-ai
+
+Status: `IN DEVELOPMENT // GENERATION API INTEGRATION PENDING`
+
+The portfolio includes a dedicated Audiora case study using real screenshots from the current build. It documents the implemented authentication, creation studio, credit/pricing concepts, Aria producer experience, and the remaining external generation-provider dependency without claiming that music generation is already live.
+
+## Cybersecurity Project Roadmap
+
+The homepage now reserves visible, clearly labeled roadmap space for:
+
+- SIEM / SOC Monitoring Lab
+- Windows Domain Vulnerability Assessment
+- Network Traffic Analysis & Packet Investigation
+- Linux Server Hardening Lab
+
+These cards are labeled as planned work and do not claim completion.
