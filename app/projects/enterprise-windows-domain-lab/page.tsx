@@ -13,12 +13,15 @@ const controls = [
   'Authorized and unauthorized access tested',
   'Source-specific Windows Firewall rules created',
   'Firewall behavior validated without disrupting DNS or SMB',
+  'Parrot OS / Nmap used to establish an external service-exposure baseline',
+  'WinRM / TCP 5985 exposure identified and selectively mitigated',
+  'Post-mitigation Nmap retest confirmed required AD services remained reachable',
 ]
 
 const skills = [
   'Windows Server Administration','Active Directory Domain Services','DNS','TCP/IP Networking','Static IP Configuration',
   'Domain Authentication','Role-Based Access Control','NTFS Permissions','SMB File Sharing','Windows Firewall',
-  'Network Troubleshooting','PowerShell','Security Validation','Least Privilege','Network Hardening','Oracle VirtualBox'
+  'Network Troubleshooting','PowerShell','Security Validation','Least Privilege','Network Hardening','Nmap','Attack Surface Assessment','Remediation Validation','Parrot OS','Oracle VirtualBox'
 ]
 
 const screenshots = [
@@ -42,6 +45,16 @@ const screenshots = [
     alt: 'Windows Defender Firewall inbound rule wizard',
     caption: 'Firewall Configuration — Windows Defender Firewall with Advanced Security was used to build and scope the inbound rule.'
   },
+  {
+    src: '/enterprise-lab-winrm-before.webp',
+    alt: 'Parrot OS Nmap scan showing WinRM TCP port 5985 open on V-SER-1 before mitigation',
+    caption: 'Exposure Baseline — Nmap from the Parrot OS security workstation showed WinRM / TCP 5985 open on V-SER-1 before mitigation.'
+  },
+  {
+    src: '/enterprise-lab-winrm-after.webp',
+    alt: 'Parrot OS Nmap scan showing WinRM TCP port 5985 filtered while required domain services remain open',
+    caption: 'Post-Mitigation Validation — WinRM / TCP 5985 changed to filtered while DNS 53, Kerberos 88, LDAP 389, and SMB 445 remained open.'
+  },
 ]
 
 export default function EnterpriseWindowsDomainLab() {
@@ -62,8 +75,8 @@ export default function EnterpriseWindowsDomainLab() {
         <header className="mt-12 max-w-4xl">
           <p className="font-mono text-[10px] tracking-[.28em] text-cyber-red">CYBERSECURITY // CASE STUDY</p>
           <h1 className="mt-4 text-4xl font-black tracking-[-.045em] text-white sm:text-6xl">Enterprise Windows Domain &amp; Network Security Lab</h1>
-          <div className="mt-5 inline-flex rounded-full border border-cyber-red/30 bg-cyber-red/[.055] px-3 py-1.5 font-mono text-[9px] tracking-[.14em] text-white">FUNCTIONAL SECURITY LAB // ONGOING EXPANSION</div>
-          <p className="mt-7 text-lg leading-8 text-cyber-secondary">Built and secured a small enterprise-style Windows network using Windows Server 2025 and Windows 11 in Oracle VirtualBox. The lab demonstrates centralized authentication, DNS, role-based access control, secure file sharing, firewall configuration, and validation testing.</p>
+          <div className="mt-5 inline-flex rounded-full border border-cyber-red/30 bg-cyber-red/[.055] px-3 py-1.5 font-mono text-[9px] tracking-[.14em] text-white">FUNCTIONAL SECURITY LAB // ASSESSMENT & HARDENING IN PROGRESS</div>
+          <p className="mt-7 text-lg leading-8 text-cyber-secondary">Built and secured a small enterprise-style Windows network using Windows Server 2025 and Windows 11 in Oracle VirtualBox. The lab demonstrates centralized authentication, DNS, role-based access control, secure file sharing, firewall configuration, attack-surface assessment, targeted hardening, and before/after validation testing.</p>
         </header>
 
         <section className="mt-12">
@@ -138,9 +151,36 @@ export default function EnterpriseWindowsDomainLab() {
         </section>
 
         <section className="mt-16">
+          <p className="panel-kicker">ASSESSMENT + HARDENING</p>
+          <h2 className="mt-3 text-3xl font-bold tracking-tight text-white">Exposure → Mitigation → Retest</h2>
+          <p className="mt-4 max-w-4xl leading-7 text-cyber-secondary">The lab was expanded with a Parrot OS security workstation to validate server exposure from a separate host. An initial Nmap scan confirmed WinRM on TCP 5985 was reachable. A targeted Windows Defender Firewall change was then applied, and follow-up scanning confirmed 5985 changed from <span className="font-mono text-white">open</span> to <span className="font-mono text-white">filtered</span> without removing required domain services.</p>
+          <div className="mt-7 grid gap-4 lg:grid-cols-3">
+            <div className="panel-card">
+              <p className="panel-kicker">01 // BASELINE</p>
+              <h3 className="mt-3 text-xl font-semibold text-white">Identify Exposure</h3>
+              <p className="mt-3 text-sm leading-7 text-cyber-secondary">Nmap from Parrot OS identified WinRM / TCP 5985 as reachable on V-SER-1.</p>
+              <div className="mt-5 rounded-xl border border-cyber-red/25 bg-cyber-red/[.04] p-4 font-mono text-xs"><span className="text-cyber-red">5985/tcp</span><br/><span className="text-white">OPEN // WSMAN</span></div>
+            </div>
+            <div className="panel-card">
+              <p className="panel-kicker">02 // MITIGATION</p>
+              <h3 className="mt-3 text-xl font-semibold text-white">Restrict WinRM</h3>
+              <p className="mt-3 text-sm leading-7 text-cyber-secondary">A source-scoped Windows Defender Firewall control was applied to reduce unnecessary remote-management exposure from the testing host.</p>
+              <div className="mt-5 rounded-xl border border-white/10 bg-black/30 p-4 font-mono text-xs"><span className="text-cyber-red">CONTROL</span><br/><span className="text-white">TARGETED FIREWALL RULE</span></div>
+            </div>
+            <div className="panel-card">
+              <p className="panel-kicker">03 // RETEST</p>
+              <h3 className="mt-3 text-xl font-semibold text-white">Preserve Required Services</h3>
+              <p className="mt-3 text-sm leading-7 text-cyber-secondary">The retest showed WinRM filtered while DNS, Kerberos, LDAP, and SMB remained reachable.</p>
+              <div className="mt-5 rounded-xl border border-white/10 bg-black/30 p-4 font-mono text-xs text-white"><span className="text-cyber-red">5985</span> FILTERED<br/>53 / 88 / 389 / 445 OPEN</div>
+            </div>
+          </div>
+          <p className="mt-5 text-xs leading-6 text-cyber-muted">Assessment note: the Nmap evidence reflects the server's current lab-facing address used during the Parrot OS validation phase.</p>
+        </section>
+
+        <section className="mt-16">
           <p className="panel-kicker">EVIDENCE</p>
           <h2 className="mt-3 text-3xl font-bold tracking-tight text-white">Validation Screenshots</h2>
-          <p className="mt-4 max-w-3xl leading-7 text-cyber-secondary">The screenshots below are direct captures from the lab and document the observed behavior used to validate access-control and firewall outcomes.</p>
+          <p className="mt-4 max-w-3xl leading-7 text-cyber-secondary">The screenshots below are direct captures from the lab and document access-control testing, firewall behavior, service-exposure baselining, mitigation, and post-change retesting.</p>
           <div className="evidence-grid mt-7">
             {screenshots.map((shot) => (
               <figure key={shot.src} className="evidence-card">
@@ -159,14 +199,14 @@ export default function EnterpriseWindowsDomainLab() {
           <div className="panel-card">
             <p className="panel-kicker">VALIDATION TOOLS</p>
             <div className="mt-5 space-y-2 font-mono text-xs text-cyber-secondary">
-              <p>ping</p><p>ipconfig</p><p>nslookup</p><p>Test-NetConnection</p><p>PowerShell</p><p>Windows Defender Firewall with Advanced Security</p><p>Active Directory Users and Computers</p><p>Server Manager</p>
+              <p>ping</p><p>ipconfig</p><p>nslookup</p><p>Test-NetConnection</p><p>PowerShell</p><p>Windows Defender Firewall with Advanced Security</p><p>Active Directory Users and Computers</p><p>Server Manager</p><p>Nmap</p><p>Parrot OS</p>
             </div>
           </div>
         </section>
 
         <section className="mt-12 rounded-3xl border border-cyber-red/20 bg-cyber-red/[.035] p-6 sm:p-8">
           <p className="font-mono text-[10px] tracking-[.2em] text-cyber-red">LAB SCOPE</p>
-          <p className="mt-3 max-w-4xl text-sm leading-7 text-cyber-secondary">All configuration and validation were performed inside a self-built, isolated VirtualBox lab. The project is being expanded over time with additional hardening, vulnerability assessment, security testing, and segmentation work.</p>
+          <p className="mt-3 max-w-4xl text-sm leading-7 text-cyber-secondary">All testing was performed against systems configured in the self-built lab environment. The core Windows domain runs in VirtualBox, and the later Nmap validation phase used a separate Parrot OS security workstation to assess the server from another lab host. The project is being expanded over time with additional hardening, vulnerability management, packet analysis, security testing, and segmentation work.</p>
         </section>
 
         <footer className="mt-14 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 py-8 font-mono text-[10px] tracking-[.12em] text-cyber-muted">

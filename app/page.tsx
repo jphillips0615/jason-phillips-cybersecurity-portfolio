@@ -23,7 +23,7 @@ const skillGroups = [
 const tools = ['Burp Suite','Nmap','Wireshark','Metasploit','Nuclei','Hashcat','John the Ripper','Gobuster','ffuf','Git','VirtualBox','Kali Linux','Parrot OS']
 
 const labs = [
-  { title: 'Enterprise Windows Domain Lab', icon: Server, text: 'Windows Server 2025 + Windows 11 environment used to practice enterprise identity, centralized authentication, secure file sharing, firewall policy, and validation testing.', bullets: ['AD users & security groups','DNS & domain authentication','SMB / NTFS access control','Firewall validation'] },
+  { title: 'Enterprise Windows Domain Lab', icon: Server, text: 'Windows Server 2025 + Windows 11 environment used to practice enterprise identity, secure file sharing, firewall policy, service-exposure assessment, hardening, and validation testing.', bullets: ['AD users & security groups','SMB / NTFS access control','Nmap exposure testing','Firewall hardening + retest'] },
   { title: 'Web Security Lab', icon: ShieldCheck, text: 'Hands-on web application testing with a focus on understanding requests, access control, and common vulnerability classes.', bullets: ['Burp Suite & HTTP','Authentication','Access control','Path traversal'] },
   { title: 'Linux Security Environment', icon: TerminalSquare, text: 'Security-focused Linux environments used to build command-line fluency and practice defensive/offensive tooling.', bullets: ['Kali Linux','Parrot OS','Terminal tools','Recon utilities'] },
   { title: 'Networking Lab', icon: Network, text: 'Practical networking environment for learning how core services interact and how to troubleshoot them when they do not.', bullets: ['DNS & DHCP','IP addressing','TCP/IP','Routing & troubleshooting'] },
@@ -50,24 +50,24 @@ const projects: Project[] = [
   {
     category: 'CYBERSECURITY',
     title: 'Enterprise Windows Domain & Network Security Lab',
-    description: 'Built and secured a small enterprise-style Windows network using Windows Server 2025 and Windows 11 in Oracle VirtualBox. The environment demonstrates centralized authentication, DNS, role-based access control, secure file sharing, source-specific firewall rules, and validation testing.',
+    description: 'Built and secured a small enterprise-style Windows network using Windows Server 2025 and Windows 11 in Oracle VirtualBox. The environment demonstrates centralized authentication, DNS, role-based access control, secure file sharing, source-specific firewall rules, Nmap-based exposure assessment, targeted hardening, and before/after validation.',
     stack: ['Windows Server 2025','Windows 11 Pro','Active Directory','DNS','SMB','NTFS','Windows Defender Firewall','PowerShell','Oracle VirtualBox'],
-    relevance: 'Demonstrates enterprise identity fundamentals, least privilege, group-based authorization, selective traffic filtering, and evidence-driven validation in a self-built lab environment.',
-    status: 'FUNCTIONAL SECURITY LAB // ONGOING EXPANSION',
+    relevance: 'Demonstrates enterprise identity fundamentals, least privilege, attack-surface assessment, selective traffic filtering, targeted remediation, and evidence-driven retesting in a self-built lab environment.',
+    status: 'FUNCTIONAL SECURITY LAB // ASSESSMENT & HARDENING IN PROGRESS',
     featured: true,
     visual: 'enterprise-lab',
     caseStudy: '/projects/enterprise-windows-domain-lab',
-    validation: ['ICMP BLOCKED','DNS / TCP 53 ALLOWED','SMB / TCP 445 ALLOWED','HR SHARE ACCESS CONTROL VERIFIED'],
+    validation: ['WINRM / TCP 5985 FILTERED AFTER MITIGATION','DNS / KERBEROS / LDAP / SMB PRESERVED','ICMP FILTERING VERIFIED','HR SHARE ACCESS CONTROL VERIFIED'],
     screenshots: [
       {
-        src: '/enterprise-lab-dns-and-icmp-validation.webp',
-        alt: 'PowerShell showing ping blocked to the domain server while TCP port 53 remains reachable',
-        caption: 'Firewall Validation: ICMP from 192.168.56.50 was blocked while DNS / TCP 53 remained reachable.'
+        src: '/enterprise-lab-winrm-before.webp',
+        alt: 'Parrot OS Nmap scan showing WinRM TCP port 5985 open on V-SER-1 before mitigation',
+        caption: 'Exposure Baseline: Nmap from the Parrot OS security workstation confirmed WinRM / TCP 5985 was reachable before mitigation.'
       },
       {
-        src: '/enterprise-lab-smb-and-icmp-validation.webp',
-        alt: 'PowerShell showing TCP port 445 reachable and ping to the domain server timing out',
-        caption: 'Service Continuity: SMB / TCP 445 remained available even while ICMP was selectively blocked.'
+        src: '/enterprise-lab-winrm-after.webp',
+        alt: 'Parrot OS Nmap validation showing WinRM TCP port 5985 filtered while DNS Kerberos LDAP and SMB remain open',
+        caption: 'Post-Mitigation Validation: WinRM / TCP 5985 was filtered while DNS 53, Kerberos 88, LDAP 389, and SMB 445 remained reachable.'
       },
       {
         src: '/enterprise-lab-hr-share-denied.webp',
@@ -75,9 +75,9 @@ const projects: Project[] = [
         caption: 'Access Control Validation: a non-authorized user was denied access to the restricted HR-Share.'
       },
       {
-        src: '/enterprise-lab-firewall-rule.webp',
-        alt: 'Windows Defender Firewall inbound rule wizard used to configure traffic filtering',
-        caption: 'Windows Defender Firewall with Advanced Security was used to create and scope the inbound rule.'
+        src: '/enterprise-lab-dns-and-icmp-validation.webp',
+        alt: 'PowerShell showing ping blocked to the domain server while TCP port 53 remains reachable',
+        caption: 'Firewall Validation: ICMP from the client was blocked while DNS / TCP 53 remained reachable.'
       }
     ],
   },
@@ -93,13 +93,13 @@ const projects: Project[] = [
   },
   {
     category: 'CYBERSECURITY // PLANNED',
-    title: 'Windows Domain Vulnerability Assessment',
-    description: 'Planned assessment of the existing v-dom.local lab from a dedicated security workstation, followed by hardening changes and before/after validation.',
-    stack: ['Kali / Parrot OS','Nmap','Windows Server','Active Directory','Service Enumeration','Hardening'],
-    relevance: 'Will extend the current enterprise lab from configuration into assessment: inventory exposed services, identify weaknesses, prioritize remediation, harden the environment, and verify the result.',
-    status: 'PLANNED // LAB EXPANSION',
+    title: 'Vulnerability Management & Remediation Lab',
+    description: 'Planned vulnerability-management workflow that moves from authenticated or network-based discovery through prioritization, remediation tracking, and evidence-based retesting.',
+    stack: ['Vulnerability Scanning','Nmap','Risk Prioritization','Remediation','Retesting','Technical Reporting'],
+    relevance: 'Planned to demonstrate a repeatable security lifecycle beyond one-off scanning: establish findings, rank risk, apply fixes, track remediation, and prove closure with follow-up evidence.',
+    status: 'PLANNED // REMEDIATION WORKFLOW',
     visual: 'planned',
-    roadmap: ['Establish baseline','Enumerate attack surface','Document findings','Harden + retest'],
+    roadmap: ['Establish scan scope','Document + prioritize findings','Remediate selected risks','Retest + close findings'],
   },
   {
     category: 'CYBERSECURITY // PLANNED',
