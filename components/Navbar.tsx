@@ -3,7 +3,7 @@
 import { Menu, X, Download } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
-const links = ['home', 'about', 'skills', 'labs', 'projects', 'experience', 'certifications', 'contact']
+const links = ['home', 'projects', 'about', 'skills', 'experience', 'contact']
 
 export function Navbar() {
   const [open, setOpen] = useState(false)
